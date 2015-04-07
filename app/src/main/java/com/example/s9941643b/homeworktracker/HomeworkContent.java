@@ -15,9 +15,9 @@ public class HomeworkContent {
     public static Map<String, Homework> ITEM_MAP = new HashMap<String, Homework>();
 
     public static class Homework {
-        String mName, mSubject;
-        Date mDateDue, mDateRemind;
-        boolean mHomeworkDone;
+        private String mName, mSubject;
+        private Date mDateDue, mDateRemind;
+        private boolean mHomeworkDone;
 
         public Homework(String name, String subject, Date dateDue, Date dateRemind) {
             mName = name;
