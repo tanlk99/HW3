@@ -72,7 +72,7 @@ public class HomeworkListFragment extends ListFragment {
         // TODO: replace with a real list adapter.
         setListAdapter(new HomeworkAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
+                R.layout.activity_homework_list_row,
                 HomeworkContent.ITEMS));
     }
 

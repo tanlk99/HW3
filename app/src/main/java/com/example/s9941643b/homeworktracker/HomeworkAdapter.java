@@ -20,7 +20,7 @@ import java.util.List;
 public class HomeworkAdapter extends ArrayAdapter<Homework> {
     private Context mContext;
     private int mResource;
-    private List<Homework> mHomeworkList = new ArrayList<Homework>;
+    private List<Homework> mHomeworkList = new ArrayList<Homework>();
 
     public HomeworkAdapter(Context context, int resource, List<Homework> homeworkList) {
         super(context, resource, homeworkList);
@@ -35,9 +35,13 @@ public class HomeworkAdapter extends ArrayAdapter<Homework> {
         if (row == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             row = inflater.inflate(mResource, parent, false);
+
+            holder = new HomeworkHolder();
+
         }
         else {
             holder = (HomeworkHolder)row.getTag();
+
         }
         Homework currentHomework = mHomeworkList.get(position);
         return row;
