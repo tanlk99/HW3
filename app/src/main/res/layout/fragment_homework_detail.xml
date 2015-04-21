@@ -1,11 +1,58 @@
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homework_detail"
-    style="?android:attr/textAppearanceLarge"
+    android:textIsSelectable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".HomeworkDetailFragment"
-/>
+    android:orientation="vertical"
+    tools:context=".HomeworkDetailFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="6dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="@string/homework_name"
+                android:padding="6dp"
+            />
+
+            <TextView
+                android:id="@+id/homework_detail_name"
+                android:padding="6dp"
+                android:gravity="right"
+            />
+        </TableRow>
+
+        <View
+            android:padding="6dp"
+            android:layout_height="1dip"
+            android:background="#FFD0D0D0"
+        />
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="@string/homework_subject"
+                android:padding="6dp"
+            />
+
+            <TextView
+                android:id="@+id/homework_detail_subject"
+                android:padding="6dp"
+                android:gravity="right"
+            />
+        </TableRow>
+
+        <View
+            android:padding="6dp"
+            android:layout_height="1dip"
+            android:background="#FFD0D0D0"
+        />
+
+    </TableLayout>
+</LinearLayout>

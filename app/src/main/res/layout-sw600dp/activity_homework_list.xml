@@ -3,19 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:baselineAligned="false"
+    android:layout_margin="6dp"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
     tools:context=".HomeworkListActivity">
-
-    <!--
-    This layout is a two-pane layout for the Homework
-    master/detail flow.
-    
-    -->
 
     <fragment
         android:id="@+id/homework_list"

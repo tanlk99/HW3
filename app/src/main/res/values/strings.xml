@@ -3,5 +3,7 @@
 
     <string name="app_name">Homework Tracker</string>
     <string name="title_homework_detail">Homework Detail</string>
+    <string name="homework_name">Name</string>
+    <string name="homework_subject">Subject</string>
 
 </resources>
