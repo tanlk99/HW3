@@ -14,7 +14,7 @@ import android.widget.TextView;
  * on handsets.
  */
 public class HomeworkDetailFragment extends Fragment {
-    public static final String ARG_ITEM_ID = "something";
+    public static final String ARG_ITEM_ID = "homework_id";
     private HomeworkContent.Homework mItem;
 
     public HomeworkDetailFragment() {
@@ -38,7 +38,8 @@ public class HomeworkDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.homework_detail)).setText(mItem.mName);
+            ((TextView)rootView.findViewById(R.id.homework_detail_name)).setText(mItem.mName);
+            ((TextView)rootView.findViewById(R.id.homework_detail_subject)).setText(mItem.mSubject);
         }
 
         return rootView;
