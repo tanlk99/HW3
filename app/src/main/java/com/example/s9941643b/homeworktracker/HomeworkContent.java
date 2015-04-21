@@ -26,9 +26,9 @@ public class HomeworkContent {
     }
 
     public static class Homework {
-        private String mName, mSubject;
-        private Date mDateDue, mDateRemind;
-        private boolean mHomeworkDone;
+        public String mName, mSubject;
+        public Date mDateDue, mDateRemind;
+        public boolean mHomeworkDone;
 
         public Homework(String name, String subject, Date dateDue, Date dateRemind) {
             mName = name;

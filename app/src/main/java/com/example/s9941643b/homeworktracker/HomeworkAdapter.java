@@ -24,6 +24,7 @@ public class HomeworkAdapter extends ArrayAdapter<Homework> {
 
     public HomeworkAdapter(Context context, int resource, List<Homework> homeworkList) {
         super(context, resource, homeworkList);
+        mContext = context;
         mResource = resource;
         mHomeworkList = homeworkList;
     }
@@ -37,13 +38,15 @@ public class HomeworkAdapter extends ArrayAdapter<Homework> {
             row = inflater.inflate(mResource, parent, false);
 
             holder = new HomeworkHolder();
-
+            holder.mNameView = (TextView)row.findViewById(R.id.homework_list_name);
+            row.setTag(holder);
         }
         else {
             holder = (HomeworkHolder)row.getTag();
-
         }
+
         Homework currentHomework = mHomeworkList.get(position);
+        holder.mNameView.setText(currentHomework.mName);
         return row;
     }
 
