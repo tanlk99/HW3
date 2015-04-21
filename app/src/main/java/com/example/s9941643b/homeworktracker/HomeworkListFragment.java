@@ -6,8 +6,6 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.example.s9941643b.homeworktracker.dummy.DummyContent;
-
 /**
  * A list fragment representing a list of Homework. This fragment
  * also supports tablet devices by allowing list items to be given an
@@ -69,7 +67,6 @@ public class HomeworkListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
         setListAdapter(new HomeworkAdapter(
                 getActivity(),
                 R.layout.activity_homework_list_row,
@@ -113,7 +110,7 @@ public class HomeworkListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(HomeworkContent.ITEMS.get(position).mID);
     }
 
     @Override
