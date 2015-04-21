@@ -39,13 +39,10 @@ public class HomeworkDetailActivity extends ActionBarActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(HomeworkDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(HomeworkDetailFragment.ARG_ITEM_ID));
+            arguments.putString(HomeworkDetailFragment.ARG_ITEM_ID, getIntent().getStringExtra(HomeworkDetailFragment.ARG_ITEM_ID));
             HomeworkDetailFragment fragment = new HomeworkDetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.homework_detail_container, fragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.homework_detail_container, fragment).commit();
         }
     }
 

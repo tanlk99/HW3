@@ -13,14 +13,15 @@ import java.util.Date;
 public class HomeworkContent {
     public static List<Homework> ITEMS = new ArrayList<Homework>();
     public static Map<String, Homework> ITEM_MAP = new HashMap<String, Homework>();
+    public static int mCurrentID = 1;
 
     static {
-        addItem(new Homework("1", "Weed Agriculture", "Herbology", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("2", "Eating Food", "Biology", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("3", "Sleeping", "Neuroscience", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("4", "Homework", "Procrastination", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("5", "Binge Watching", "Entertainment", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("6", "More Sleeping", "Further Neuroscience", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Weed Agriculture", "Herbology", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Eating Food", "Biology", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Sleeping", "Neuroscience", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Homework", "Procrastination", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Binge Watching", "Entertainment", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("More Sleeping", "Further Neuroscience", new Date(1000000000), new Date(1000000000)));
     }
 
     private static void addItem(Homework item) {
@@ -29,12 +30,14 @@ public class HomeworkContent {
     }
 
     public static class Homework {
-        public String mName, mSubject, mID;
+        public String mID, mName, mSubject;
         public Date mDateDue, mDateRemind;
         public boolean mHomeworkDone;
 
-        public Homework(String id, String name, String subject, Date dateDue, Date dateRemind) {
-            mID = id;
+        public Homework(String name, String subject, Date dateDue, Date dateRemind) {
+            mID = Integer.toString(mCurrentID);
+            mCurrentID++;
+
             mName = name;
             mSubject = subject;
             mDateDue = dateDue;

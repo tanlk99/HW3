@@ -40,9 +40,6 @@ public class HomeworkListFragment extends ListFragment {
      * selections.
      */
     public interface Callbacks {
-        /**
-         * Callback for when an item has been selected.
-         */
         public void onItemSelected(String id);
     }
 
@@ -137,7 +134,8 @@ public class HomeworkListFragment extends ListFragment {
     private void setActivatedPosition(int position) {
         if (position == ListView.INVALID_POSITION) {
             getListView().setItemChecked(mActivatedPosition, false);
-        } else {
+        }
+        else {
             getListView().setItemChecked(position, true);
         }
 

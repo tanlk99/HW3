@@ -21,8 +21,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link HomeworkListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class HomeworkListActivity extends FragmentActivity
-        implements HomeworkListFragment.Callbacks {
+public class HomeworkListActivity extends FragmentActivity implements HomeworkListFragment.Callbacks {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -66,11 +65,9 @@ public class HomeworkListActivity extends FragmentActivity
             arguments.putString(HomeworkDetailFragment.ARG_ITEM_ID, id);
             HomeworkDetailFragment fragment = new HomeworkDetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.homework_detail_container, fragment)
-                    .commit();
-
-        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.homework_detail_container, fragment).commit();
+        }
+        else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, HomeworkDetailActivity.class);

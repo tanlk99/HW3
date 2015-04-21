@@ -14,7 +14,7 @@ import android.widget.TextView;
  * on handsets.
  */
 public class HomeworkDetailFragment extends Fragment {
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_ID = "something";
     private HomeworkContent.Homework mItem;
 
     public HomeworkDetailFragment() {
