@@ -8,18 +8,6 @@
     android:orientation="vertical"
     tools:context=".HomeworkDetailFragment">
 
-    <ImageButton
-        android:src="@drawable/cross_icon"
-        android:layout_height="32dp"
-        android:layout_width="32dp"
-        android:layout_gravity="right"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:scaleType="fitCenter"
-        android:id="@+id/delete_homework"
-        android:background="#00000000"
-    />
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

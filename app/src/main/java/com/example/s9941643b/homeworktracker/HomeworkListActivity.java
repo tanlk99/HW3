@@ -32,13 +32,14 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
     private ImageButton mHomeworkButton;
     private ImageButton mDeleteButton;
     private HomeworkListFragment mHomeworkListFragment;
-    private String mCurrentID;
+    private String mSelectedID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list);
         mHomeworkButton = (ImageButton)findViewById(R.id.add_homework);
+        mDeleteButton = (ImageButton)findViewById(R.id.delete_homework);
         mHomeworkListFragment = (HomeworkListFragment)getSupportFragmentManager().findFragmentById(R.id.homework_list);
 
         if (findViewById(R.id.homework_detail_container) != null) {
@@ -57,8 +58,8 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeworkContent.ITEMS.remove(HomeworkContent.ITEM_MAP.get(mCurrentID));
-                HomeworkContent.ITEM_MAP.remove(mCurrentID);
+                HomeworkContent.ITEMS.remove(HomeworkContent.ITEM_MAP.get(mSelectedID));
+                HomeworkContent.ITEM_MAP.remove(mSelectedID);
                 mHomeworkListFragment.getAdapter().notifyDataSetChanged();
             }
         });
@@ -66,7 +67,7 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
 
     @Override
     public void onItemSelected(String id) {
-        mCurrentID = id;
+        mSelectedID = id;
 
         if (mTwoPane) {
             Bundle arguments = new Bundle();
