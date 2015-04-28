@@ -10,14 +10,32 @@
     android:showDividers="middle"
     tools:context=".HomeworkListActivity">
 
-    <fragment
-        android:id="@+id/homework_list"
-        android:name="com.example.s9941643b.homeworktracker.HomeworkListFragment"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:layout="@android:layout/list_content"
-    />
+        android:orientation="vertical">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="right"
+            android:id="@+id/add_homework"
+            android:background="#00000000"
+            android:text="@string/plus"
+            android:textSize="16dp"
+        />
+
+        <fragment
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/homework_list"
+            android:name="com.example.s9941643b.homeworktracker.HomeworkListFragment"
+            tools:layout="@android:layout/list_content"
+        />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/homework_detail_container"
