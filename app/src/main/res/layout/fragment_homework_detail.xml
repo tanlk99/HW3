@@ -21,10 +21,11 @@
                 android:padding="6dp"
             />
 
-            <TextView
+            <EditText
                 android:id="@+id/homework_detail_name"
                 android:padding="6dp"
                 android:gravity="right"
+                android:background="#00000000"
             />
         </TableRow>
 
@@ -41,10 +42,11 @@
                 android:padding="6dp"
             />
 
-            <TextView
+            <EditText
                 android:id="@+id/homework_detail_subject"
                 android:padding="6dp"
                 android:gravity="right"
+                android:background="#00000000"
             />
         </TableRow>
 

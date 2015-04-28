@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-
 /**
  * An activity representing a single Homework detail screen. This
  * activity is only used on handset devices. On tablet-size devices,

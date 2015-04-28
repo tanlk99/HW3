@@ -1,10 +1,10 @@
 package com.example.s9941643b.homeworktracker;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
 
 /**
  * Created by S9941643B on 4/7/2015.
@@ -16,25 +16,25 @@ public class HomeworkContent {
     public static int mCurrentID = 1;
 
     static {
-        addItem(new Homework("Weed Agriculture", "Herbology", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("Eating Food", "Biology", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("Sleeping", "Neuroscience", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("Homework", "Procrastination", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("Binge Watching", "Entertainment", new Date(1000000000), new Date(1000000000)));
-        addItem(new Homework("More Sleeping", "Further Neuroscience", new Date(1000000000), new Date(1000000000)));
+        addItem(new Homework("Weed Agriculture", "Herbology", new GregorianCalendar(), new GregorianCalendar()));
+        addItem(new Homework("Eating Food", "Biology", new GregorianCalendar(), new GregorianCalendar()));
+        addItem(new Homework("Sleeping", "Neuroscience", new GregorianCalendar(), new GregorianCalendar()));
+        addItem(new Homework("Homework", "Procrastination", new GregorianCalendar(), new GregorianCalendar()));
+        addItem(new Homework("Binge Watching", "Entertainment", new GregorianCalendar(), new GregorianCalendar()));
+        addItem(new Homework("More Sleeping", "Further Neuroscience", new GregorianCalendar(), new GregorianCalendar()));
     }
 
-    private static void addItem(Homework item) {
+    public static void addItem(Homework item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.mID, item);
     }
 
     public static class Homework {
         public String mID, mName, mSubject;
-        public Date mDateDue, mDateRemind;
+        public GregorianCalendar mDateDue, mDateRemind;
         public boolean mHomeworkDone;
 
-        public Homework(String name, String subject, Date dateDue, Date dateRemind) {
+        public Homework(String name, String subject, GregorianCalendar dateDue, GregorianCalendar dateRemind) {
             mID = Integer.toString(mCurrentID);
             mCurrentID++;
 

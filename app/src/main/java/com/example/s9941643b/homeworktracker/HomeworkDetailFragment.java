@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
 
 /**
  * A fragment representing a single Homework detail screen.
@@ -38,8 +38,8 @@ public class HomeworkDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView)rootView.findViewById(R.id.homework_detail_name)).setText(mItem.mName);
-            ((TextView)rootView.findViewById(R.id.homework_detail_subject)).setText(mItem.mSubject);
+            ((EditText)rootView.findViewById(R.id.homework_detail_name)).setText(mItem.mName);
+            ((EditText)rootView.findViewById(R.id.homework_detail_subject)).setText(mItem.mSubject);
         }
 
         return rootView;

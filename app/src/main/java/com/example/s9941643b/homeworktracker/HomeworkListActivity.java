@@ -3,7 +3,12 @@ package com.example.s9941643b.homeworktracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.s9941643b.homeworktracker.HomeworkContent.Homework;
+
+import java.util.GregorianCalendar;
 
 /**
  * An activity representing a list of Homework. This activity
@@ -21,18 +26,18 @@ import android.support.v4.app.FragmentActivity;
  * {@link HomeworkListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class HomeworkListActivity extends FragmentActivity implements HomeworkListFragment.Callbacks {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+public class HomeworkListActivity extends FragmentActivity implements HomeworkListFragment.Callbacks {
     private boolean mTwoPane;
+    private Button mHomeworkButton;
+    private HomeworkListFragment mHomeworkListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list);
+        mHomeworkButton = (Button)findViewById(R.id.add_homework);
+        mHomeworkListFragment = (HomeworkListFragment)getSupportFragmentManager().findFragmentById(R.id.homework_list);
 
         if (findViewById(R.id.homework_detail_container) != null) {
             // The detail container view will be present only in the
@@ -43,18 +48,20 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((HomeworkListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.homework_list))
-                    .setActivateOnItemClick(true);
+            mHomeworkListFragment.setActivateOnItemClick(true);
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
+
+        mHomeworkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeworkContent.addItem(new Homework("New Homework", "Subject", new GregorianCalendar(), new GregorianCalendar()));
+                mHomeworkListFragment.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
-    /**
-     * Callback method from {@link HomeworkListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
     @Override
     public void onItemSelected(String id) {
         if (mTwoPane) {

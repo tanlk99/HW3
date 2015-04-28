@@ -33,6 +33,7 @@ public class HomeworkListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+    private HomeworkAdapter mAdapter;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -63,11 +64,8 @@ public class HomeworkListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setListAdapter(new HomeworkAdapter(
-                getActivity(),
-                R.layout.activity_homework_list_row,
-                HomeworkContent.ITEMS));
+        mAdapter = new HomeworkAdapter(getActivity(), R.layout.activity_homework_list_row, HomeworkContent.ITEMS);
+        setListAdapter(mAdapter);
     }
 
     @Override
@@ -140,5 +138,9 @@ public class HomeworkListFragment extends ListFragment {
         }
 
         mActivatedPosition = position;
+    }
+
+    public HomeworkAdapter getAdapter() {
+        return mAdapter;
     }
 }
