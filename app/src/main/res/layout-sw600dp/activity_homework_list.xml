@@ -16,16 +16,35 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_weight="0"
-            android:layout_gravity="right"
-            android:id="@+id/add_homework"
-            android:background="#00000000"
-            android:text="@string/plus"
-            android:textSize="16dp"
-        />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:src="@drawable/plus_icon"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="left"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:scaleType="fitCenter"
+                android:id="@+id/add_homework"
+                android:background="#00000000"
+            />
+
+            <ImageButton
+                android:src="@drawable/cross_icon"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="right"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:scaleType="fitCenter"
+                android:id="@+id/delete_homework"
+                android:background="#00000000"
+            />
+        </LinearLayout>
 
         <fragment
             android:layout_height="match_parent"

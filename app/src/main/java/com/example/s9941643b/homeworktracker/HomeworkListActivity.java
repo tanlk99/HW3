@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.s9941643b.homeworktracker.HomeworkContent.Homework;
 
@@ -29,29 +29,22 @@ import java.util.GregorianCalendar;
 
 public class HomeworkListActivity extends FragmentActivity implements HomeworkListFragment.Callbacks {
     private boolean mTwoPane;
-    private Button mHomeworkButton;
+    private ImageButton mHomeworkButton;
+    private ImageButton mDeleteButton;
     private HomeworkListFragment mHomeworkListFragment;
+    private String mCurrentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list);
-        mHomeworkButton = (Button)findViewById(R.id.add_homework);
+        mHomeworkButton = (ImageButton)findViewById(R.id.add_homework);
         mHomeworkListFragment = (HomeworkListFragment)getSupportFragmentManager().findFragmentById(R.id.homework_list);
 
         if (findViewById(R.id.homework_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
             mHomeworkListFragment.setActivateOnItemClick(true);
         }
-
-        // TODO: If exposing deep links into your app, handle intents here.
 
         mHomeworkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +53,22 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
                 mHomeworkListFragment.getAdapter().notifyDataSetChanged();
             }
         });
+
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeworkContent.ITEMS.remove(HomeworkContent.ITEM_MAP.get(mCurrentID));
+                HomeworkContent.ITEM_MAP.remove(mCurrentID);
+                mHomeworkListFragment.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onItemSelected(String id) {
+        mCurrentID = id;
+
         if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
             Bundle arguments = new Bundle();
             arguments.putString(HomeworkDetailFragment.ARG_ITEM_ID, id);
             HomeworkDetailFragment fragment = new HomeworkDetailFragment();
@@ -75,8 +76,6 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
             getSupportFragmentManager().beginTransaction().replace(R.id.homework_detail_container, fragment).commit();
         }
         else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
             Intent detailIntent = new Intent(this, HomeworkDetailActivity.class);
             detailIntent.putExtra(HomeworkDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);

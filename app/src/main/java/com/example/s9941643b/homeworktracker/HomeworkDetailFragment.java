@@ -17,12 +17,14 @@ public class HomeworkDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "homework_id";
     private HomeworkContent.Homework mItem;
 
+
     public HomeworkDetailFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
