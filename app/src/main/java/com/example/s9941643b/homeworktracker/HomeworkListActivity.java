@@ -30,7 +30,6 @@ import java.util.GregorianCalendar;
 public class HomeworkListActivity extends FragmentActivity implements HomeworkListFragment.Callbacks {
     private boolean mTwoPane;
     private ImageButton mHomeworkButton;
-    private ImageButton mDeleteButton;
     private HomeworkListFragment mHomeworkListFragment;
     private String mSelectedID;
 
@@ -39,7 +38,7 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list);
         mHomeworkButton = (ImageButton)findViewById(R.id.add_homework);
-        mDeleteButton = (ImageButton)findViewById(R.id.delete_homework);
+
         mHomeworkListFragment = (HomeworkListFragment)getSupportFragmentManager().findFragmentById(R.id.homework_list);
 
         if (findViewById(R.id.homework_detail_container) != null) {
@@ -51,15 +50,6 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
             @Override
             public void onClick(View v) {
                 HomeworkContent.addItem(new Homework("New Homework", "Subject", new GregorianCalendar(), new GregorianCalendar()));
-                mHomeworkListFragment.getAdapter().notifyDataSetChanged();
-            }
-        });
-
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HomeworkContent.ITEMS.remove(HomeworkContent.ITEM_MAP.get(mSelectedID));
-                HomeworkContent.ITEM_MAP.remove(mSelectedID);
                 mHomeworkListFragment.getAdapter().notifyDataSetChanged();
             }
         });

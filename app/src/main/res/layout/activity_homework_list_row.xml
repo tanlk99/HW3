@@ -13,4 +13,32 @@
         android:id="@+id/homework_list_name"
     />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:textColor="#FFA0A0A0"
+            android:id="@+id/homework_list_subject"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="12dp"
+            android:textColor="#FFA0A0A0"
+            android:id="@+id/homework_list_due"
+        />
+    </LinearLayout>
+
 </LinearLayout>

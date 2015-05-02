@@ -5,13 +5,26 @@
     android:textIsSelectable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="6dp"
     android:orientation="vertical"
     tools:context=".HomeworkDetailFragment">
 
+    <ImageButton
+        android:src="@drawable/cross_icon"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:layout_gravity="right"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:scaleType="fitCenter"
+        android:id="@+id/delete_homework"
+        android:background="#00000000"
+    />
+
     <TableLayout
+        android:paddingTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="6dp"
         android:stretchColumns="1">
 
         <TableRow>
@@ -48,6 +61,54 @@
                 android:gravity="right"
                 android:background="#00000000"
             />
+        </TableRow>
+
+        <View
+            android:padding="6dp"
+            android:layout_height="1dip"
+            android:background="#FFD0D0D0"
+        />
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="@string/homework_date_due"
+                android:padding="6dp"
+            />
+
+            <EditText
+                android:clickable="true"
+                android:editable="false"
+                android:id="@+id/homework_detail_due"
+                android:padding="6dp"
+                android:gravity="right"
+                android:background="#00000000"
+            />
+
+        </TableRow>
+
+        <View
+            android:padding="6dp"
+            android:layout_height="1dip"
+            android:background="#FFD0D0D0"
+        />
+
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="@string/homework_date_remind"
+                android:padding="6dp"
+            />
+
+            <EditText
+                android:clickable="true"
+                android:editable="false"
+                android:id="@+id/homework_detail_remind"
+                android:padding="6dp"
+                android:gravity="right"
+                android:background="#00000000"
+            />
+
         </TableRow>
 
         <View
