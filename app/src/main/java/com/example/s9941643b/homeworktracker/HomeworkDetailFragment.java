@@ -26,6 +26,7 @@ public class HomeworkDetailFragment extends Fragment {
     private HomeworkContent.Homework mItem;
     private ImageButton mDeleteButton;
     private ImageButton mSaveButton;
+    private ImageButton mAlarmButton;
     private EditText mDueDate;
     private EditText mRemindDate;
     private EditText mNameText;
@@ -55,6 +56,7 @@ public class HomeworkDetailFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_homework_detail, container, false);
         mDeleteButton = (ImageButton)rootView.findViewById(R.id.delete_homework);
         mSaveButton = (ImageButton)rootView.findViewById(R.id.save_homework);
+        mAlarmButton = (ImageButton)rootView.findViewById(R.id.toggle_alarm);
         mDueDate = (EditText)rootView.findViewById(R.id.homework_detail_due);
         mRemindDate = (EditText)rootView.findViewById(R.id.homework_detail_remind);
         mNameText = (EditText)rootView.findViewById(R.id.homework_detail_name);
@@ -155,6 +157,13 @@ public class HomeworkDetailFragment extends Fragment {
 
                 HomeworkContent.sortHomework();
                 mIndex = HomeworkContent.ITEMS.indexOf(mItem);
+            }
+        });
+
+        mAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

@@ -44,7 +44,7 @@ public class HomeworkContent {
     public static class Homework {
         public String mID, mName, mSubject;
         public GregorianCalendar mDateDue, mDateRemind;
-        public boolean mHomeworkDone;
+        public boolean mAlarm;
 
         public Homework(String name, String subject, GregorianCalendar dateDue, GregorianCalendar dateRemind) {
             mID = Integer.toString(mCurrentID);
@@ -54,7 +54,7 @@ public class HomeworkContent {
             mSubject = subject;
             mDateDue = dateDue;
             mDateRemind = dateRemind;
-            mHomeworkDone = false;
+            mAlarm = false;
         }
     }
 }
