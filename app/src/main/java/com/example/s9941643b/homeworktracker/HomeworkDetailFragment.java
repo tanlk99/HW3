@@ -31,11 +31,15 @@ public class HomeworkDetailFragment extends Fragment {
     public static String ARG_ITEM_ID = "homework_id";
     private HomeworkContent.Homework mItem;
     private ImageButton mDeleteButton;
+    private ImageButton mSaveButton;
     private EditText mDueDate;
     private EditText mRemindDate;
+    private EditText mNameText;
+    private EditText mSubjectText;
     private DatePickerDialog mDueDateDialog;
     private DatePickerDialog mRemindDateDialog;
     private boolean mTwoPane;
+    private int mIndex;
 
     private SimpleDateFormat mDateFormatter;
 
@@ -48,6 +52,7 @@ public class HomeworkDetailFragment extends Fragment {
         mDateFormatter = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = HomeworkContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mIndex = HomeworkContent.ITEMS.indexOf(mItem);
         }
     }
 
@@ -55,14 +60,17 @@ public class HomeworkDetailFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_homework_detail, container, false);
         mDeleteButton = (ImageButton)rootView.findViewById(R.id.delete_homework);
+        mSaveButton = (ImageButton)rootView.findViewById(R.id.save_homework);
         mDueDate = (EditText)rootView.findViewById(R.id.homework_detail_due);
         mRemindDate = (EditText)rootView.findViewById(R.id.homework_detail_remind);
+        mNameText = (EditText)rootView.findViewById(R.id.homework_detail_name);
+        mSubjectText = (EditText)rootView.findViewById(R.id.homework_detail_subject);
 
         if (mItem != null) {
-            ((EditText)rootView.findViewById(R.id.homework_detail_name)).setText(mItem.mName);
-            ((EditText)rootView.findViewById(R.id.homework_detail_subject)).setText(mItem.mSubject);
+            mNameText.setText(mItem.mName);
+            mSubjectText.setText(mItem.mSubject);
             mDueDate.setText(mDateFormatter.format(mItem.mDateDue.getTime()));
-            mRemindDate.setText(mDateFormatter.format(mItem.mDateDue.getTime()));
+            mRemindDate.setText(mDateFormatter.format(mItem.mDateRemind.getTime()));
         }
 
         if (rootView.findViewById(R.id.homework_list_container) != null) {
@@ -75,8 +83,8 @@ public class HomeworkDetailFragment extends Fragment {
                 Log.d("Homework Detail", mItem.mName + " Removed");
 
                 Homework newItem;
-                if (HomeworkContent.ITEMS.indexOf(mItem) == 0) newItem = HomeworkContent.ITEMS.get(1);
-                else newItem = HomeworkContent.ITEMS.get(HomeworkContent.ITEMS.indexOf(mItem) - 1);
+                if (mIndex == 0) newItem = HomeworkContent.ITEMS.get(1);
+                else newItem = HomeworkContent.ITEMS.get(mIndex - 1);
                 HomeworkContent.ITEMS.remove(mItem);
 
                 Iterator< Map.Entry<String, Homework> > it = HomeworkContent.ITEM_MAP.entrySet().iterator();
@@ -140,6 +148,16 @@ public class HomeworkDetailFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("Date Picker", "Date Remind Clicked");
                 mRemindDateDialog.show();
+            }
+        });
+
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mNameText.getText().toString() != "") mItem.mName = mNameText.getText().toString();
+                if (mSubjectText.getText().toString() != "") mItem.mSubject = mSubjectText.getText().toString();
+                HomeworkContent.ITEMS.set(mIndex, mItem);
+                HomeworkContent.ITEM_MAP.put(ARG_ITEM_ID, mItem);
             }
         });
 
