@@ -1,6 +1,8 @@
 package com.example.s9941643b.homeworktracker;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,16 @@ public class HomeworkContent {
     public static void addItem(Homework item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.mID, item);
+    }
+
+    public static class HomeworkComparator implements Comparator<Homework> {
+        public int compare(Homework hw1, Homework hw2) {
+            return hw1.mDateDue.compareTo(hw2.mDateDue);
+        }
+    }
+
+    public static void sortHomework() {
+        Collections.sort(ITEMS, new HomeworkComparator());
     }
 
     public static class Homework {

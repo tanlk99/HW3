@@ -37,6 +37,7 @@ public class HomeworkListActivity extends FragmentActivity implements HomeworkLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list);
+        HomeworkContent.sortHomework();
         mHomeworkButton = (ImageButton)findViewById(R.id.add_homework);
 
         mHomeworkListFragment = (HomeworkListFragment)getSupportFragmentManager().findFragmentById(R.id.homework_list);

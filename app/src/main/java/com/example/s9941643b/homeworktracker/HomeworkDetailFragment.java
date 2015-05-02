@@ -21,12 +21,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * A fragment representing a single Homework detail screen.
- * This fragment is either contained in a {@link HomeworkListActivity}
- * in two-pane mode (on tablets) or a {@link HomeworkDetailActivity}
- * on handsets.
- */
 public class HomeworkDetailFragment extends Fragment {
     public static String ARG_ITEM_ID = "homework_id";
     private HomeworkContent.Homework mItem;
@@ -126,7 +120,7 @@ public class HomeworkDetailFragment extends Fragment {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                if (newDate.compareTo((Calendar)mItem.mDateDue) > 0) {
+                if (newDate.compareTo(mItem.mDateDue) > 0) {
                     newDate = mItem.mDateDue;
                 }
 
@@ -158,6 +152,9 @@ public class HomeworkDetailFragment extends Fragment {
                 if (mSubjectText.getText().toString() != "") mItem.mSubject = mSubjectText.getText().toString();
                 HomeworkContent.ITEMS.set(mIndex, mItem);
                 HomeworkContent.ITEM_MAP.put(ARG_ITEM_ID, mItem);
+
+                HomeworkContent.sortHomework();
+                mIndex = HomeworkContent.ITEMS.indexOf(mItem);
             }
         });
 
