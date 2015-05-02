@@ -1,6 +1,10 @@
 package com.example.s9941643b.homeworktracker;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 
 import com.example.s9941643b.homeworktracker.HomeworkContent.Homework;
 
@@ -20,6 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class HomeworkDetailFragment extends Fragment {
     public static String ARG_ITEM_ID = "homework_id";
@@ -29,14 +35,17 @@ public class HomeworkDetailFragment extends Fragment {
     private ImageButton mAlarmButton;
     private EditText mDueDate;
     private EditText mRemindDate;
+    private EditText mRemindTime;
     private EditText mNameText;
     private EditText mSubjectText;
     private DatePickerDialog mDueDateDialog;
     private DatePickerDialog mRemindDateDialog;
+    private TimePickerDialog mRemindTimeDialog;
     private boolean mTwoPane;
     private int mIndex;
 
     private SimpleDateFormat mDateFormatter;
+    private SimpleDateFormat mTimeFormatter;
 
     public HomeworkDetailFragment() {
     }
@@ -45,6 +54,7 @@ public class HomeworkDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDateFormatter = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+        mTimeFormatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = HomeworkContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
             mIndex = HomeworkContent.ITEMS.indexOf(mItem);
@@ -59,6 +69,7 @@ public class HomeworkDetailFragment extends Fragment {
         mAlarmButton = (ImageButton)rootView.findViewById(R.id.toggle_alarm);
         mDueDate = (EditText)rootView.findViewById(R.id.homework_detail_due);
         mRemindDate = (EditText)rootView.findViewById(R.id.homework_detail_remind);
+        mRemindTime = (EditText)rootView.findViewById(R.id.homework_detail_remind_time);
         mNameText = (EditText)rootView.findViewById(R.id.homework_detail_name);
         mSubjectText = (EditText)rootView.findViewById(R.id.homework_detail_subject);
 
@@ -67,6 +78,7 @@ public class HomeworkDetailFragment extends Fragment {
             mSubjectText.setText(mItem.mSubject);
             mDueDate.setText(mDateFormatter.format(mItem.mDateDue.getTime()));
             mRemindDate.setText(mDateFormatter.format(mItem.mDateRemind.getTime()));
+            mRemindTime.setText(mTimeFormatter.format(mItem.mDateRemind.getTime()));
         }
 
         if (rootView.findViewById(R.id.homework_list_container) != null) {
@@ -108,7 +120,6 @@ public class HomeworkDetailFragment extends Fragment {
             }
         });
 
-        Calendar newCalendar = Calendar.getInstance();
         mDueDateDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -116,20 +127,25 @@ public class HomeworkDetailFragment extends Fragment {
                 mItem.mDateDue = (GregorianCalendar)newDate;
                 mDueDate.setText(mDateFormatter.format(newDate.getTime()));
             }
-        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, mItem.mDateDue.get(Calendar.YEAR), mItem.mDateDue.get(Calendar.MONTH), mItem.mDateDue.get(Calendar.DAY_OF_MONTH));
 
         mRemindDateDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                if (newDate.compareTo(mItem.mDateDue) > 0) {
-                    newDate = mItem.mDateDue;
-                }
-
                 mItem.mDateRemind = (GregorianCalendar)newDate;
                 mRemindDate.setText(mDateFormatter.format(newDate.getTime()));
             }
-        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, mItem.mDateRemind.get(Calendar.YEAR), mItem.mDateRemind.get(Calendar.MONTH), mItem.mDateRemind.get(Calendar.DAY_OF_MONTH));
+
+        mRemindTimeDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+            public void onTimeSet(TimePicker view, int hour, int minute) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(mItem.mDateRemind.get(Calendar.YEAR), mItem.mDateRemind.get(Calendar.MONTH), mItem.mDateRemind.get(Calendar.DAY_OF_MONTH), hour, minute);
+                mItem.mDateRemind = (GregorianCalendar)newDate;
+                mRemindTime.setText(mTimeFormatter.format(newDate.getTime()));
+            }
+        }, mItem.mDateRemind.get(Calendar.HOUR_OF_DAY), mItem.mDateRemind.get(Calendar.MINUTE), true);
 
         mDueDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +160,14 @@ public class HomeworkDetailFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("Date Picker", "Date Remind Clicked");
                 mRemindDateDialog.show();
+            }
+        });
+
+        mRemindTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Date Picker", "Time Remind Clicked");
+                mRemindTimeDialog.show();
             }
         });
 
@@ -163,7 +187,35 @@ public class HomeworkDetailFragment extends Fragment {
         mAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mItem.mAlarm) {
+                    mAlarmButton.setImageResource(R.drawable.alarm_off_icon);
+                    mItem.mAlarm = false;
+                    HomeworkContent.ITEMS.set(mIndex, mItem);
+                    HomeworkContent.ITEM_MAP.put(ARG_ITEM_ID, mItem);
 
+                    Intent alarmIntent = new Intent(getActivity(), ReminderReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                    alarmManager.cancel(pendingIntent);
+                }
+                else {
+                    mAlarmButton.setImageResource(R.drawable.alarm_icon);
+                    mItem.mAlarm = true;
+                    HomeworkContent.ITEMS.set(mIndex, mItem);
+                    HomeworkContent.ITEM_MAP.put(ARG_ITEM_ID, mItem);
+
+                    Intent alarmIntent = new Intent(getActivity(), ReminderReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                    Calendar alarmTime = mItem.mDateRemind;
+                    alarmTime.setTimeZone(TimeZone.getTimeZone("UTC"));
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), pendingIntent);
+
+                    Log.d("Alarm Reminder", "" + alarmTime.getTimeInMillis());
+                    Log.d("Alarm Reminder", "" + System.currentTimeMillis());
+                }
             }
         });
 

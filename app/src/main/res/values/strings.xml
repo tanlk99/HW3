@@ -6,6 +6,7 @@
     <string name="homework_name">Name</string>
     <string name="homework_subject">Subject</string>
     <string name="homework_date_due">Date Due</string>
-    <string name="homework_date_remind">Reminder</string>
+    <string name="homework_date_remind">Reminder Date</string>
+    <string name="homework_remind_time">Reminder Time</string>
 
 </resources>

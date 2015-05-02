@@ -24,6 +24,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeworkListActivity" />
         </activity>
+
+        <service
+            android:name=".ReminderReceiver"
+            android:exported="false" >
+        </service>
+
+        <receiver
+            android:name=".ReminderReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
     </application>
 
 </manifest>

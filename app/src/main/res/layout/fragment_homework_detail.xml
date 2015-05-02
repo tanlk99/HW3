@@ -151,5 +151,29 @@
             android:background="#FFD0D0D0"
         />
 
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="@string/homework_remind_time"
+                android:padding="6dp"
+            />
+
+            <EditText
+                android:clickable="true"
+                android:editable="false"
+                android:id="@+id/homework_detail_remind_time"
+                android:padding="6dp"
+                android:gravity="right"
+                android:background="#00000000"
+            />
+
+        </TableRow>
+
+        <View
+            android:padding="6dp"
+            android:layout_height="1dip"
+            android:background="#FFD0D0D0"
+        />
+
     </TableLayout>
 </LinearLayout>
