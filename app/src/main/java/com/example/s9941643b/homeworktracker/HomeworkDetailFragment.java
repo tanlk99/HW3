@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.s9941643b.homeworktracker.HomeworkContent.Homework;
 
@@ -33,6 +34,7 @@ public class HomeworkDetailFragment extends Fragment {
     private ImageButton mDeleteButton;
     private ImageButton mSaveButton;
     private ImageButton mAlarmButton;
+    private ImageButton mExportButton;
     private EditText mDueDate;
     private EditText mRemindDate;
     private EditText mRemindTime;
@@ -67,6 +69,7 @@ public class HomeworkDetailFragment extends Fragment {
         mDeleteButton = (ImageButton)rootView.findViewById(R.id.delete_homework);
         mSaveButton = (ImageButton)rootView.findViewById(R.id.save_homework);
         mAlarmButton = (ImageButton)rootView.findViewById(R.id.toggle_alarm);
+        mExportButton = (ImageButton)rootView.findViewById(R.id.export_button);
         mDueDate = (EditText)rootView.findViewById(R.id.homework_detail_due);
         mRemindDate = (EditText)rootView.findViewById(R.id.homework_detail_remind);
         mRemindTime = (EditText)rootView.findViewById(R.id.homework_detail_remind_time);
@@ -90,10 +93,12 @@ public class HomeworkDetailFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("Homework Detail", mItem.mName + " Removed");
 
-                Homework newItem;
-                if (mIndex == 0) newItem = HomeworkContent.ITEMS.get(1);
-                else newItem = HomeworkContent.ITEMS.get(mIndex - 1);
-                HomeworkContent.ITEMS.remove(mItem);
+                Homework newItem = null;
+                if (HomeworkContent.ITEMS.size() > 1) {
+                    if (mIndex == 0) newItem = HomeworkContent.ITEMS.get(1);
+                    else newItem = HomeworkContent.ITEMS.get(mIndex - 1);
+                    HomeworkContent.ITEMS.remove(mItem);
+                }
 
                 Iterator< Map.Entry<String, Homework> > it = HomeworkContent.ITEM_MAP.entrySet().iterator();
                 for (; it.hasNext();) {
@@ -103,8 +108,10 @@ public class HomeworkDetailFragment extends Fragment {
                     }
                 }
 
-                mItem = newItem;
-                ARG_ITEM_ID = newItem.mID;
+                if (newItem != null) {
+                    mItem = newItem;
+                    ARG_ITEM_ID = newItem.mID;
+                }
 
                 Log.d("Homework Detail", mItem.mName);
 
@@ -212,9 +219,49 @@ public class HomeworkDetailFragment extends Fragment {
                     Calendar alarmTime = mItem.mDateRemind;
                     alarmTime.setTimeZone(TimeZone.getTimeZone("UTC"));
                     alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), pendingIntent);
+                }
+            }
+        });
 
-                    Log.d("Alarm Reminder", "" + alarmTime.getTimeInMillis());
-                    Log.d("Alarm Reminder", "" + System.currentTimeMillis());
+        mExportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setType("text/plain");
+
+                /* Android cannot detect Gmail using this code for some reason on my phone, so I'm hardcoding.
+
+                PackageManager packageManager = getActivity().getPackageManager();
+                List<ApplicationInfo> appsList = packageManager.getInstalledApplications(0);
+
+                String packageName = null;
+                String className = null;
+                boolean found = false;
+                for (ApplicationInfo info : appsList) {
+                    packageName = info.packageName;
+                    if (packageName == "com.google.android.gm") { //Package Name for Gmail
+                        className = info.name;
+                        found = true;
+                        break;
+                    }
+                }
+                */
+
+                boolean found = true;
+                if (found) {
+                    intent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Homework Tracker Alert");
+                    intent.putExtra(Intent.EXTRA_TEXT,
+                        getResources().getString(R.string.homework_name) + ": " + mItem.mName + "\n" +
+                        getResources().getString(R.string.homework_subject) + ": " + mItem.mSubject + "\n" +
+                        getResources().getString(R.string.homework_date_due) + ": " + mDateFormatter.format(mItem.mDateDue.getTime()) + "\n\n" +
+                        getResources().getString(R.string.automated_message));
+
+                    startActivity(intent);
+                }
+                else {
+                    Log.d("Error", "Gmail Not Installed");
+                    Toast.makeText(getActivity(), "Gmail Not Installed", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -29,6 +29,17 @@
                 android:id="@+id/toggle_alarm"
                 android:background="#00000000"
             />
+
+            <ImageButton
+                android:src="@drawable/export_icon"
+                android:layout_height="48dp"
+                android:layout_width="48dp"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                android:scaleType="fitCenter"
+                android:id="@+id/export_button"
+                android:background="#00000000"
+            />
         </LinearLayout>
 
         <ImageButton

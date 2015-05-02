@@ -24,6 +24,19 @@
             android:id="@+id/add_homework"
             android:background="#00000000"
         />
+
+        <ImageButton
+            android:src="@drawable/save_icon"
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:layout_gravity="left"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:scaleType="fitCenter"
+            android:id="@+id/save_all_homework"
+            android:background="#00000000"
+        />
+
     </LinearLayout>
 
     <fragment

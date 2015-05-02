@@ -17,6 +17,7 @@ public class HomeworkContent {
     public static Map<String, Homework> ITEM_MAP = new HashMap<String, Homework>();
     public static int mCurrentID = 1;
 
+    //For Marking Purposes: remove this to see JSON in action
     static {
         addItem(new Homework("Weed Agriculture", "Herbology", new GregorianCalendar(), new GregorianCalendar()));
         addItem(new Homework("Eating Food", "Biology", new GregorianCalendar(), new GregorianCalendar()));
